@@ -1,15 +1,13 @@
 #include "monty.h"
 
 /**
- * get_nop - No operation function
- * @stack: Pointer to the stack
- * @line_number: Line number where the operation occurs
- *
- * Return: Void
+ * f_nop - Does nothing.
+ * @head: Stack head
+ * @counter: Line number
+ * Return: No return
  */
-void get_nop(stack_t **stack, unsigned int line_number)
+void f_nop(stack_t **head, unsigned int counter)
 {
-	(void)stack;
-	(void)line_number;
+	(void)counter;
+	(void)head;
 }
-

@@ -1,40 +1,42 @@
 #include "monty.h"
 
 /**
- * get_div - Function that divides the top two elements of the stack
- * @stack: Pointer to the top of the stack
- * @line_number: Line number where the operation occurs
- *
- * Description: This function divides the second element on top of the stack
- *              by the top element.
- * Return: Nothing on success, or exits with failure status.
+ * f_div - Divides the top two elements of the stack.
+ * @head: Stack head
+ * @counter: Line number
+ * Return: No return
  */
-void get_div(stack_t **stack, unsigned int line_number)
+void f_div(stack_t **head, unsigned int counter)
 {
-	stack_t *top, *next;
+	stack_t *current;
+	int len = 0, result;
 
-	if ((*stack == NULL) || ((*stack)->next == NULL))
+	current = *head;
+	while (current)
 	{
-		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
-		fclose(file);
-		free(*stack);
+		current = current->next;
+		len++;
+	}
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't div, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
-	else if ((*stack)->n == 0)
+	current = *head;
+	if (current->n == 0)
 	{
-		fprintf(stderr, "L%d: division by zero\n", line_number);
-		fclose(file);
-		get_free(*stack);
+		fprintf(stderr, "L%d: division by zero\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		top = *stack;
-		next = top->next;
-		next->n /= top->n;
-		*stack = next;
-		(*stack)->prev = NULL;
-		free(top);
-	}
+	result = current->next->n / current->n;
+	current->next->n = result;
+	*head = current->next;
+	free(current);
 }
 

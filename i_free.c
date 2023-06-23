@@ -1,19 +1,18 @@
 #include "monty.h"
 
 /**
- * get_free - Frees the stack
- * @stack: Pointer to the stack
- *
- * Description: This function recursively frees the memory allocated for each
- *              element in the stack.
- * Return: Void
+ * free_stack - Frees a doubly linked list.
+ * @head: Head of the stack
  */
-void get_free(stack_t *stack)
+void free_stack(stack_t *head)
 {
-	if (stack)
+	stack_t *aux;
+
+	aux = head;
+	while (head)
 	{
-		get_free(stack->next);
-		free(stack);
+		aux = head->next;
+		free(head);
+		head = aux;
 	}
 }
-
